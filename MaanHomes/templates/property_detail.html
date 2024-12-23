@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+
+{% block title %}Listing {% endblock %}
+{% load static %}
+{% block content %}
+<section class="section mt-5 pt-4">
+    <div class="container-fluid mt-2">
+        <div class="row g-2">
+            <!-- Main Image -->
+            <div class="col-md-6">
+                <a href="{{ property_images.0.image.url }}" class="lightbox" title="">
+                    <img src="{{ property_images.0.image.url }}" class="img-fluid rounded-3 shadow"
+                        alt="{{ property.title }}">
+                </a>
+            </div>
+
+            <!-- Additional Images -->
+            <div class="col-md-6">
+                <div class="row g-2">
+                    {% for image in property_images %}
+                    {% if not forloop.first %}
+                    <div class="col-6">
+                        <a href="{{ image.image.url }}" class="lightbox" title="">
+                            <img src="{{ image.image.url }}" class="img-fluid rounded-3 shadow"
+                                alt="{{ property.title }}">
+                        </a>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-100 mt-60">
+        <div class="row g-4">
+            <div class="col-lg-8 col-md-7 col-12">
+                <div class="section-title">
+                    <h4 class="title mb-0">{{ property.title }}</h4>
+
+                    <ul class="list-unstyled mb-0 py-3">
+                        <li class="list-inline-item">
+                            <span class="d-flex align-items-center me-4">
+                                <i class="mdi mdi-arrow-expand-all fs-4 me-2 text-primary"></i>
+                                <span class="text-muted fs-5">{{ property.area }} sqf</span>
+                            </span>
+                        </li>
+                        <li class="list-inline-item">
+                            <span class="d-flex align-items-center me-4">
+                                <i class="mdi mdi-bed fs-4 me-2 text-primary"></i>
+                                <span class="text-muted fs-5">{{ property.rooms }} Beds</span>
+                            </span>
+                        </li>
+                        <li class="list-inline-item">
+                            <span class="d-flex align-items-center">
+                                <i class="mdi mdi-shower fs-4 me-2 text-primary"></i>
+                                <span class="text-muted fs-5">{{ property.baths }} Baths</span>
+                            </span>
+                        </li>
+                    </ul>
+
+                    <p class="text-muted">{{ property.description }}</p>
+
+                    <!-- Google Maps Embed -->
+                    <div class="card map border-0">
+                        <div class="card-body p-0">
+                            <iframe src="https://www.google.com/maps?q={{ property.location }}&output=embed"
+                                class="rounded-3" style="border:0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar with Pricing and Actions -->
+            <div class="col-lg-4 col-md-5 col-12">
+                <div class="rounded-3 shadow bg-white sticky-bar p-4">
+                    <h5 class="mb-3">Price:</h5>
+
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h5 class="mb-0">${{ property.price }}</h5>
+                        <span class="badge bg-primary">{{ property.transaction_type }}</span>
+                    </div>
+
+                    <div class="mt-3">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <span class="small text-muted">Days on Market</span>
+                            <span class="small">{{ property.listing_date|timesince }} Days</span>
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-between mt-2">
+                            <span class="small text-muted">Price per sq ft</span>
+                            <span class="small">${{ property.price_per_sq_ft }}</span>
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-between mt-2">
+                            <span class="small text-muted">Monthly Payment (estimate)</span>
+                            <span class="small">${{ property.estimated_monthly_payment }}/Monthly</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex mt-3">
+                        <a href="javascript:void(0)" class="btn btn-primary w-100 me-2">Book Now</a>
+                       
+                          
+                            <a href="#" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#inquiryModal">Offer Now</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Related Properties Section -->
+    <div class="container mt-100 mt-60">
+        <div class="row justify-content-center">
+            <div class="col">
+                <div class="section-title text-center mb-4 pb-2">
+                    <h4 class="title mb-3">Related Properties</h4>
+                    <p class="text-muted para-desc mb-0 mx-auto">A great platform to buy, sell, and rent your properties
+                        without any agents or commissions.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            {% for related_property in related_properties %}
+            <div class="col-md-4">
+                <div class="card property border-0 shadow position-relative overflow-hidden rounded-3 m-3">
+                    <div class="property-image position-relative overflow-hidden shadow">
+                        <img src="{{ related_property.propertyimage_set.first.image.url }}" class="img-fluid"
+                            alt="{{ related_property.title }}">
+                    </div>
+                    <div class="card-body content p-4">
+                        <a href="{% url 'property_detail' related_property.id %}"
+                            class="title fs-5 text-dark fw-medium">{{ related_property.title }}</a>
+
+                        <ul
+                            class="list-unstyled mt-3 py-3 border-top border-bottom d-flex align-items-center justify-content-between">
+                            <li class="d-flex align-items-center me-3">
+                                <i class="mdi mdi-arrow-expand-all fs-5 me-2 text-primary"></i>
+                                <span class="text-muted">{{ related_property.area }}sqf</span>
+                            </li>
+
+                            <li class="d-flex align-items-center me-3">
+                                <i class="mdi mdi-bed fs-5 me-2 text-primary"></i>
+                                <span class="text-muted">{{ related_property.rooms }} Beds</span>
+                            </li>
+
+                            <li class="d-flex align-items-center">
+                                <i class="mdi mdi-shower fs-5 me-2 text-primary"></i>
+                                <span class="text-muted">{{ related_property.baths }} Baths</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="inquiryModal" tabindex="-1" aria-labelledby="inquiryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="inquiryModalLabel">Submit an Inquiry</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{% url 'property_detail' property.id %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contact_info" class="form-label">Contact Information</label>
+                        <input type="text" class="form-control" id="contact_info" name="contact_info" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit Inquiry</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

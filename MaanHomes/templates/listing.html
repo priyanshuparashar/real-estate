@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+
+{% block title %}Listing {% endblock %}
+{% load static %}
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<section class="section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="features-absolute">
+                    <div class="card border-0 bg-white shadow mt-5">
+                        <form class="card-body text-start">
+                            <div class="registration-form text-dark text-start">
+                                <div class="row g-lg-0">
+                                    <div class="col-lg-3 col-md-6 col-12">
+                                        <div class="mb-3 mb-sm-0">
+                                            <label class="form-label d-none fs-6">Search :</label>
+                                            <div class="filter-search-form position-relative filter-border">
+                                                <i data-feather="search" class="fea icon-ex-md icons"></i>
+                                                <input name="name" type="text" id="job-keyword"
+                                                    class="form-control filter-input-box bg-light border-0"
+                                                    placeholder="Search your keaywords">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end col-->
+
+                                    <div class="col-lg-3 col-md-6 col-12">
+                                        <div class="mb-3 mb-sm-0">
+                                            <label class="form-label d-none fs-6">Select Categories:</label>
+                                            <div class="filter-search-form position-relative filter-border">
+                                                <i data-feather="home" class="fea icon-ex-md icons"></i>
+                                                <select class="form-select" id="choices-catagory-buy">
+                                                    <option>Houses</option>
+                                                    <option>Apartment</option>
+                                                    <option>Offices</option>
+                                                    <option>Townhome</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end col-->
+
+                                    <div class="col-lg-3 col-md-6 col-12">
+                                        <div class="mb-3 mb-sm-0">
+                                            <label class="form-label d-none fs-6">Price :</label>
+                                            <div class="filter-search-form position-relative">
+                                                <i data-feather="dollar-sign" class="fea icon-ex-md icons"></i>
+                                                <select class="form-select" id="choices-min-price-buy">
+                                                    <option>Price</option>
+                                                    <option>500</option>
+                                                    <option>1000</option>
+                                                    <option>2000</option>
+                                                    <option>3000</option>
+                                                    <option>4000</option>
+                                                    <option>5000</option>
+                                                    <option>6000</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end col-->
+
+                                    <div class="col-lg-3 col-md-6 col-12">
+                                        <input type="submit" id="search" name="search" style="height: 60px;"
+                                            class="btn btn-primary searchbtn w-100" value="Search">
+                                    </div>
+                                    <!--end col-->
+                                </div>
+                                <!--end row-->
+                            </div>
+                        </form>
+                        <!--end form-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end container-->
+
+
+    <div class="container">
+        <div class="row g-4 mt-0">
+            {% for property in properties %}
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="card property border-0 shadow position-relative overflow-hidden rounded-3">
+                    <div class="property-image position-relative overflow-hidden shadow">
+                        <!-- Display the first image or a placeholder if no images are available -->
+                        {% if property.images.all %}
+                        <img src="{{ property.images.all.0.image.url }}" class="img-fluid" alt="{{ property.title }}">
+                        {% else %}
+                        <img src="images/placeholder.jpg" class="img-fluid" alt="No image available">
+                        {% endif %}
+                        <ul class="list-unstyled property-icon">
+                            <li><a href="javascript:void(0)" class="btn btn-sm btn-icon btn-pills btn-primary">
+                                    <i data-feather="home" class="icons"></i></a></li>
+                            <li class="mt-1"><a href="javascript:void(0)" class="btn btn-sm btn-icon btn-pills btn-primary">
+                                    <i data-feather="heart" class="icons"></i></a></li>
+                            <li class="mt-1"><a href="javascript:void(0)" class="btn btn-sm btn-icon btn-pills btn-primary">
+                                    <i data-feather="camera" class="icons"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="card-body content p-4">
+                        <a href="{% url 'property_detail' property.id %}" class="title fs-5 text-dark fw-medium">{{ property.title }}</a>
+                        <ul
+                            class="list-unstyled mt-3 py-3 border-top border-bottom d-flex align-items-center justify-content-between">
+                            <li class="d-flex align-items-center me-3">
+                                <i class="mdi mdi-arrow-expand-all fs-5 me-2 text-primary"></i>
+                                <span class="text-muted">{{ property.area_sq_ft }}sqf</span>
+                            </li>
+                            <li class="d-flex align-items-center me-3">
+                                <i class="mdi mdi-bed fs-5 me-2 text-primary"></i>
+                                <span class="text-muted">{{ property.number_of_rooms }} Beds</span>
+                            </li>
+                            <li class="d-flex align-items-center">
+                                <i class="mdi mdi-shower fs-5 me-2 text-primary"></i>
+                                <span class="text-muted">4 Baths</span>
+                            </li>
+                        </ul>
+                        <ul class="list-unstyled d-flex justify-content-between mt-2 mb-0">
+                            <li class="list-inline-item mb-0">
+                                <span class="text-muted">Price</span>
+                                <p class="fw-medium mb-0">${{ property.price }}</p>
+                            </li>
+                            <li class="list-inline-item mb-0 text-muted">
+                                <span class="text-muted">Rating</span>
+                                <ul class="fw-medium text-warning list-unstyled mb-0">
+                                    <li class="list-inline-item mb-0"><i class="mdi mdi-star"></i></li>
+                                    <li class="list-inline-item mb-0"><i class="mdi mdi-star"></i></li>
+                                    <li class="list-inline-item mb-0"><i class="mdi mdi-star"></i></li>
+                                    <li class="list-inline-item mb-0"><i class="mdi mdi-star"></i></li>
+                                    <li class="list-inline-item mb-0"><i class="mdi mdi-star"></i></li>
+                                    <li class="list-inline-item mb-0 text-dark">5.0(30)</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--end col-->
+            {% endfor %}
+        </div>
+    </div>
+    <!--end container-->
+</section>
+
+
+
+{% endblock %}

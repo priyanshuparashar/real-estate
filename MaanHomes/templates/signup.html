@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}Listing {% endblock %}
+{% load static %}
+{% block content %}
+<section class="bg-home zoom-image d-flex align-items-center">
+    <div class="bg-overlay image-wrap" style="background: url('{% static " images/bg/03.jpg" %}') center;"></div>
+    <div class="bg-overlay bg-gradient-overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="p-4 bg-white rounded-3 shadow-md mx-auto w-100" style="max-width: 400px;">
+                    <form method="post" action="{% url 'signup' %}">
+                        {% csrf_token %}
+                        <a href="{% url 'home' %}">
+                            <img src="{% static " images/logo-icon-80.png" %}" class="mb-4 d-block mx-auto" alt="">
+                        </a>
+                        <h5 class="mb-3">Register your account</h5>
+
+                        <div class="form-floating mb-2">
+                            <input type="text" class="form-control" id="floatingFirstName" name="first_name"
+                                placeholder="Harry" required>
+                            <label for="floatingFirstName">First Name</label>
+                        </div>
+
+                        <div class="form-floating mb-2">
+                            <input type="email" class="form-control" id="floatingEmail" name="email"
+                                placeholder="name@example.com" required>
+                            <label for="floatingEmail">Email Address</label>
+                        </div>
+
+                        <div class="form-floating mb-2">
+                            <input type="text" class="form-control" id="floatingPhone" name="phone_number"
+                                placeholder="Phone Number" required>
+                            <label for="floatingPhone">Phone Number</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="floatingPassword" name="password"
+                                placeholder="Password" required>
+                            <label for="floatingPassword">Password</label>
+                        </div>
+
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="flexCheckOwner" name="is_owner">
+                            <label class="form-check-label text-muted" for="flexCheckOwner">I am a Property
+                                Owner</label>
+                        </div>
+
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="flexCheckAgent" name="is_agent">
+                            <label class="form-check-label text-muted" for="flexCheckAgent">I am an Agent</label>
+                        </div>
+
+                        <button class="btn btn-primary w-100" type="submit">Register</button>
+
+                        <div class="col-12 text-center mt-3">
+                            <span>
+                                <span class="text-muted me-2">Already have an account ?</span>
+                                <a href="{% url 'home' %}" class="text-dark fw-medium">Sign in</a>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+{% endblock %}

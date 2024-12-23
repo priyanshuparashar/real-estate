@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}Listing {% endblock %}
+{% load static %}
+{% block content %}
+<div class="container my-5">
+    <h2>List Your Property</h2>
+    <form method="post" enctype="multipart/form-data" action="{% url 'property_create' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="property_type" class="form-label">Property Type</label>
+            <select class="form-select" id="property_type" name="property_type" required>
+                {% for type, name in property_types %}
+                <option value="{{ type }}">{{ name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="transaction_type" class="form-label">Transaction Type</label>
+            <select class="form-select" id="transaction_type" name="transaction_type" required>
+                {% for type, name in transaction_types %}
+                <option value="{{ type }}">{{ name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" class="form-control" id="price" name="price" step="0.01" required>
+        </div>
+        <div class="mb-3">
+            <label for="location" class="form-label">Location</label>
+            <input type="text" class="form-control" id="location" name="location" required>
+        </div>
+        <div class="mb-3">
+            <label for="area_sq_ft" class="form-label">Area (Sq Ft)</label>
+            <input type="number" class="form-control" id="area_sq_ft" name="area_sq_ft" required>
+        </div>
+        <div class="mb-3">
+            <label for="number_of_rooms" class="form-label">Number of Rooms</label>
+            <input type="number" class="form-control" id="number_of_rooms" name="number_of_rooms" required>
+        </div>
+        <div class="mb-3">
+            <label for="amenities" class="form-label">Amenities (e.g., Pool, Gym)</label>
+            <input type="text" class="form-control" id="amenities" name="amenities">
+        </div>
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-select" id="status" name="status" required>
+                {% for status, name in listing_status %}
+                <option value="{{ status }}">{{ name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="images" class="form-label">Property Images</label>
+            <input type="file" class="form-control" id="images" name="images" multiple>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+
+
+
+{% endblock %}

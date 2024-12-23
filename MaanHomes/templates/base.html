@@ -1,0 +1,55 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Maan Housing</title>
+    <!-- <meta name="description" content="Real Estate Bootstrap 5 Landing Template" />
+    <meta name="keywords"
+        content="Onepage, creative, modern, bootstrap 5, multipurpose, clean, Real Estate, buy, sell, Rent" />
+    <meta name="author" content="Shreethemes" />
+    <meta name="website" content="https://shreethemes.in/" />
+    <meta name="email" content="support@shreethemes.in" />
+    <meta name="version" content="1.0.0" /> -->
+    <!-- favicon -->
+    <link href="{% static 'images/favicon.ico' %}" rel="shortcut icon">
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" type="text/css" rel="stylesheet" />
+    <!-- Slider -->
+    <link href="{% static 'css/tiny-slider.css' %}" rel="stylesheet" />
+    <!-- Tobii -->
+    <link href="{% static 'css/tobii.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- Choice css -->
+    <link href="{% static 'css/choices.min.css' %}" rel="stylesheet" />
+    <!-- Material Icon -->
+    <link href="{% static 'css/materialdesignicons.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- Custom Css -->
+    <link href="{% static 'css/style.min.css' %}" rel="stylesheet" type="text/css" id="theme-opt" />
+</head>
+
+<body>
+    {% include 'partials/nav.html' %}
+    
+    {% block content %}
+    {% endblock %}
+    
+    {% include 'partials/footer.html' %}
+
+    <!-- Back to top -->
+    <a href="#" onclick="topFunction()" id="back-to-top" class="back-to-top rounded-pill fs-5"><i
+            data-feather="arrow-up" class="fea icon-sm align-middle"></i></a>
+    <!-- Back to top -->
+
+    <!-- JAVASCRIPTS -->
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/tiny-slider.js' %}"></script>
+    <script src="{% static 'js/tobii.min.js' %}"></script>
+    <script src="{% static 'js/choices.min.js' %}"></script>
+    <script src="{% static 'js/feather.min.js' %}"></script>
+    <script src="{% static 'js/plugins.init.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+</body>
+
+</html>
